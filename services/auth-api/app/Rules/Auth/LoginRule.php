@@ -3,7 +3,8 @@
 namespace App\Rules\Auth;
 
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
+
+use Facades\App\Repositories\Contracts\AuthRepositoryInterface as AuthRepository;
 
 class LoginRule implements Rule
 {
@@ -16,11 +17,9 @@ class LoginRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return Auth::attempt(
-            [
-                'email' => request()->email,
-                'password' => request()->password,
-            ]
+        return AuthRepository::isValidCredential(
+            request()->email,
+            request()->password
         );
     }
 

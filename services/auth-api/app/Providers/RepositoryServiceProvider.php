@@ -5,10 +5,12 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use App\Repositories\Contracts\{
-    AuthRepositoryInterface
+    AuthRepositoryInterface,
+    UserRepositoryInterface
 };
 use App\Repositories\{
-    AuthRepository
+    AuthRepository,
+    UserRepository
 };
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -20,6 +22,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public $bindings = [
         AuthRepositoryInterface::class => AuthRepository::class,
+        UserRepositoryInterface::class => UserRepository::class,
     ];
 
     /**

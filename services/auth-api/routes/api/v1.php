@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{
-    AuthController
+    AuthController,
+    UserController
 };
 
 /*
@@ -19,6 +20,7 @@ use App\Http\Controllers\{
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('refresh-token', [AuthController::class, 'refreshToken']);
+Route::post('signup', [UserController::class, 'store']);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);

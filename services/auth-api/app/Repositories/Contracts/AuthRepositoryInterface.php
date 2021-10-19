@@ -11,7 +11,7 @@ interface AuthRepositoryInterface
      * @param String $password
      * @return mixed
      */
-    public function authenticate(String $email, String $password);
+    public function authenticate($email, $password);
 
     /**
      * Logout the user
@@ -26,5 +26,14 @@ interface AuthRepositoryInterface
      * @param String $token
      * @return mixed
      */
-    public function refreshToken(String $token);
+    public function refreshToken($token);
+
+    /**
+     * Attempt to authorize user
+     * 
+     * @param String $email
+     * @param String $password
+     * @return bool
+     */
+    public function isValidCredential($email, $password);
 }

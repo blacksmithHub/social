@@ -2,13 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
-use App\Repositories\Contracts\AuthRepositoryInterface;
-use App\Repositories\Support\Auth\AuthRequest;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\{
     RefreshTokenRepository,
     TokenRepository
 };
+
+use App\Models\User;
+use App\Repositories\Contracts\AuthRepositoryInterface;
+use App\Repositories\Support\Auth\AuthRequest;
 
 class AuthRepository extends Repository implements AuthRepositoryInterface
 {
@@ -29,7 +31,7 @@ class AuthRepository extends Repository implements AuthRepositoryInterface
      * @param string $password
      * @return Collection
      */
-    public function authenticate(String $email, String $password)
+    public function authenticate($email, $password)
     {
         return collect(
             (new AuthRequest)->getToken($email, $password)
@@ -60,10 +62,27 @@ class AuthRepository extends Repository implements AuthRepositoryInterface
      * @param String $token
      * @return mixed
      */
-    public function refreshToken(String $token)
+    public function refreshToken($token)
     {
         return collect(
             (new AuthRequest)->getTokenViaRefreshToken($token)
+        );
+    }
+
+    /**
+     * Attempt to authorize user
+     * 
+     * @param String $email
+     * @param String $password
+     * @return bool
+     */
+    public function isValidCredential($email, $password)
+    {
+        return Auth::attempt(
+            [
+                'email' => $email,
+                'password' => $password,
+            ]
         );
     }
 }
