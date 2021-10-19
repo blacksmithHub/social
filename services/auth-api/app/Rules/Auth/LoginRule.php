@@ -16,10 +16,12 @@ class LoginRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return Auth::attempt([
-            'email' => request()->email,
-            'password' => request()->password,
-        ]);
+        return Auth::attempt(
+            [
+                'email' => request()->email,
+                'password' => request()->password,
+            ]
+        );
     }
 
     /**
