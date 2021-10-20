@@ -38,14 +38,11 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
+            // API routes versions definition
+            $this->apiRoutes('v1');
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
+            // Laravel default web routing
+            $this->webRoutes();
         });
     }
 
@@ -59,5 +56,35 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
+    }
+
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     * 
+     * @param string $version
+     * @return void
+     */
+    protected function apiRoutes($version)
+    {
+        Route::prefix(sprintf('api/%s', $version))
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path(sprintf('routes/api/%s.php', $version)));
+    }
+
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function webRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 }

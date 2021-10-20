@@ -30,4 +30,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'auth' => [
+        'url' => env('AUTH_SERVICE_URL'),
+        'client_id' => env('CLIENT_ID'),
+        'client_secret' => env('CLIENT_SECRET'),
+        'authentication_id' => env('AUTHENTICATION_ID'),
+        'authentication_secret' => env('AUTHENTICATION_SECRET')
+    ],
+
 ];
