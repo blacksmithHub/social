@@ -36,10 +36,9 @@ class AuthService extends Service implements AuthServiceInterface
     /**
      * Logout Action
      *
-     * @param array $request
      * @return mixed
      */
-    public function logout($request)
+    public function logout()
     {
         return $this->repository->logout();
     }
@@ -53,5 +52,15 @@ class AuthService extends Service implements AuthServiceInterface
     public function refreshToken($request)
     {
         return $this->repository->refreshToken(Arr::get($request, 'refresh_token'));
+    }
+
+    /**
+     * Get authenticated user
+     * 
+     * @return mixed
+     */
+    public function getAuth()
+    {
+        return $this->repository->getAuth();
     }
 }
