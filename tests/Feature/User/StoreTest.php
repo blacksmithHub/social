@@ -29,10 +29,7 @@ class StoreTest extends TestCase
     {
         $password = 'password';
 
-        $params = User::factory()->make([
-            'password' => Hash::make($password)
-        ])
-            ->toArray();
+        $params = User::factory()->make()->toArray();
 
         Arr::set($params, 'password', $password);
         Arr::set($params, 'password_confirmation', $password);

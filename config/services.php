@@ -31,7 +31,6 @@ return [
     ],
 
     'auth' => [
-        'url' => env('AUTH_SERVICE_URL'),
         'client_id' => env('CLIENT_ID'),
         'client_secret' => env('CLIENT_SECRET'),
         'authentication_id' => env('AUTHENTICATION_ID'),
