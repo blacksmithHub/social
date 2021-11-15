@@ -36,4 +36,11 @@ interface AuthRepositoryInterface
      * @return bool
      */
     public function isValidCredential($email, $password);
+
+    /**
+     * Get authenticated user
+     * 
+     * @return mixed
+     */
+    public function getAuth();
 }

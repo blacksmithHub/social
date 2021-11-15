@@ -37,4 +37,15 @@ class UserController extends Controller
         $validatedRequest = $request->validated();
         return $this->service->store($validatedRequest);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int|string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return $this->service->show($id);
+    }
 }

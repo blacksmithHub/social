@@ -42,12 +42,11 @@ class AuthController extends Controller
     /**
      * Logout Action
      *
-     * @param \App\Http\Requests\Auth\LogoutRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function logout(LogoutRequest $request)
+    public function logout()
     {
-        return $this->service->logout($request->validated());
+        return $this->service->logout();
     }
 
     /**
@@ -59,5 +58,15 @@ class AuthController extends Controller
     public function refreshToken(RefreshTokenRequest $request)
     {
         return $this->service->refreshToken($request->validated());
+    }
+
+    /**
+     * Get authenticated user
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function getAuth()
+    {
+        return $this->service->getAuth();
     }
 }

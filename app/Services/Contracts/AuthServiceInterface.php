@@ -15,10 +15,9 @@ interface AuthServiceInterface
     /**
      * Logout Action
      *
-     * @param array $request
      * @return mixed
      */
-    public function logout($request);
+    public function logout();
 
     /**
      * Refresh token action
@@ -27,4 +26,11 @@ interface AuthServiceInterface
      * @return mixed
      */
     public function refreshToken($request);
+
+    /**
+     * Get authenticated user
+     * 
+     * @return mixed
+     */
+    public function getAuth();
 }

@@ -2,10 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
@@ -35,11 +32,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->configureRateLimiting();
-
         $this->routes(function () {
             // API routes versions definition
             $this->apiRoutes('v1');
+
+            // Internal API routes protected by Laravel Passport Client Credentials
+            $this->clientRoutes();
 
             // Laravel default web routing
             $this->webRoutes();
@@ -47,15 +45,18 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Configure the rate limiters for the application.
+     * Define the "api" routes for the application.
      *
+     * These routes are typically stateless.
+     * 
      * @return void
      */
-    protected function configureRateLimiting()
+    protected function clientRoutes()
     {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
-        });
+        Route::prefix('api/client')
+            ->middleware(['api', 'client'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/client.php'));
     }
 
     /**

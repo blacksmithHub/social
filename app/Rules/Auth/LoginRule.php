@@ -5,6 +5,7 @@ namespace App\Rules\Auth;
 use Illuminate\Contracts\Validation\Rule;
 
 use Facades\App\Repositories\Contracts\AuthRepositoryInterface as AuthRepository;
+use Illuminate\Support\Facades\Auth;
 
 class LoginRule implements Rule
 {

@@ -85,4 +85,14 @@ class AuthRepository extends Repository implements AuthRepositoryInterface
             ]
         );
     }
+
+    /**
+     * Get authenticated user
+     * 
+     * @return mixed
+     */
+    public function getAuth()
+    {
+        return Auth::user();
+    }
 }
